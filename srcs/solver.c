@@ -90,8 +90,9 @@ void					solver(t_lemin *lem)
 		sort_path(cir_tab, tab_len);
 		// finish_t = clock() - start_t;
 		// printf("retrace_circuits time%f\n", (double)finish_t / CLOCKS_PER_SEC);
-		// debug_print_circuits(cir_tab, tab_len);
-		print_ants(lem, cir_tab, tab_len);
+		printf("tab_len%d\n\n", tab_len );
+		debug_print_circuits(cir_tab, tab_len);
+		// print_ants(lem, cir_tab, tab_len);
 	}
 	free_cir_tab(cir_tab, tab_len);
 }

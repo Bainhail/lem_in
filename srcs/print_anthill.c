@@ -67,6 +67,7 @@ static void		print_one_floor_in_cir(uint32_t floor, t_circuits **cir_tab,
 		if (node)
 		{
 			print_line(nb + i, (*node)->name);//
+			// print_line(h->max_ant_index, (*node)->name);//
 			check_if_exit(lem->end, node, h);
 			h->max_ant_index--;
 			h->print_nb--;

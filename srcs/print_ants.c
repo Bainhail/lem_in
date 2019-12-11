@@ -38,6 +38,7 @@ void		prepare_print_one_data(t_anthill *h, uint32_t send1)
 	h->total_enter += send1;
 	h->print_nb = h->total_enter - h->total_exit;
 	h->max_ant_index = h->total_enter;
+	// printf("\n\nsend1[%d]total_exit[%d], total_enter[%d]\n\n",send1, h->total_exit, h->total_enter );
 
 }
 
@@ -50,6 +51,7 @@ void		prepare_print_two_data(t_anthill *h2, uint32_t send2, t_anthill *h)
 	h2->total_enter += send2;
 	h2->print_nb = h2->total_enter - h2->total_exit;
 	h2->max_ant_index = h2->total_enter + h->max_ant_index;
+
 }
 
 /*
@@ -74,6 +76,7 @@ void		print_ants(t_lemin *lem, t_circuits **cir_tab, int32_t tab_len)
 	send2 = 0;
 	while (h1.activated || h2.activated)
 	{
+		printf("no use[%d]\n", n_use );
 		if (tab_len - n_use <= (uint32_t)h1.unsent)
 			h1.send_size = (int32_t)(tab_len - n_use);
 		send1 = send_ants(&h1);

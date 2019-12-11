@@ -27,7 +27,7 @@ void		debug_print_circuits(t_circuits **cir_tab, uint32_t tab_len)
 		while (cp)
 		{
 			node = *(t_node**)(cp->content);
-			printf("%s\n", node->name);
+			printf(" %s", node->name);
 			cp = cp->next;
 		}
 		i++;
