@@ -6,20 +6,11 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:06:30 by jleblond          #+#    #+#             */
-/*   Updated: 2019/12/10 21:06:31 by nabih            ###   ########.fr       */
+/*   Updated: 2019/12/11 06:33:41 by nabih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solver.h"
-
-void		print_line(uint32_t ant_index, char *node_name)
-{
-	ft_putchar('L');
-	ft_putnbr(ant_index);
-	ft_putchar('-');
-	ft_putstr(node_name);
-	ft_putchar(' ');
-}
 
 /*
 */
@@ -31,7 +22,7 @@ void		check_if_exit(t_node *end, t_node **node, t_anthill *h)
 
 t_node		**get_node_in_circuit(t_list *cir, uint32_t floor)
 {
-	t_node **node;
+	t_node	**node;
 
 	node = NULL;
 	while (cir && (floor != 0))
@@ -52,7 +43,7 @@ t_node		**get_node_in_circuit(t_list *cir, uint32_t floor)
 ** h->send_size == tab_len of cir_tab
 */
 static void		print_one_floor_in_cir(uint32_t floor, t_circuits **cir_tab,
-									t_anthill *h, t_lemin *lem)
+									   t_anthill *h, t_lemin *lem)
 {
 	t_node			**node;
 	int32_t			i;
@@ -64,10 +55,14 @@ static void		print_one_floor_in_cir(uint32_t floor, t_circuits **cir_tab,
 	while (i < h->send_size && h->print_nb > 0)
 	{
 		node = get_node_in_circuit(cir_tab[i]->addr, floor);
+		/* printf("print_anthill.c >>>> node_addr = %p , i = %d, floor = %d , nb = %d <<<<\n", node, i, floor, nb + i); */
+		/* printf("print_anthill.c >>>> nb_FLOOR = %d & FLOOR = %d <<<<\n", cir_tab[i]->nb_floor, floor % cir_tab[i]->nb_floor); */
+		/* printf("print_anthill.c >>>> FLOOR - (NB + i) = %d <<<<\n", floor - (nb + i)); */
+		/* if (floor == 90) */
+		/* 	exit(0); */
 		if (node)
 		{
-			print_line(nb + i, (*node)->name);//
-			// print_line(h->max_ant_index, (*node)->name);//
+//			print_line(nb + i, (*node)->name);//
 			check_if_exit(lem->end, node, h);
 			h->max_ant_index--;
 			h->print_nb--;
@@ -85,6 +80,7 @@ void		print_anthill_one(t_lemin *lem, t_circuits **cir_tab, t_anthill *h)
 	floor = h->start_floor;
 	while (h->print_nb > 0)
 	{
+//		printf("%d\n", h->print_nb);
 		print_one_floor_in_cir(floor, cir_tab, h, lem);
 		floor++;
 	}

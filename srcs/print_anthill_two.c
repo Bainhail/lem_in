@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:13:26 by jleblond          #+#    #+#             */
-/*   Updated: 2019/12/10 04:03:13 by nabih            ###   ########.fr       */
+/*   Updated: 2019/12/11 02:18:16 by nabih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static t_node		**print_one_node(int32_t *index, t_circuits **cir_tab,
 			node = get_node_in_circuit(cir_tab[(index[i])]->addr, floor);
 			if (node)
 			{
-				print_line(nb + i, (*node)->name);
+//				print_line(nb + i, (*node)->name);
 				h2->max_ant_index--;
 				h2->print_nb--;
 			}

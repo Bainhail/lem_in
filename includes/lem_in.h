@@ -6,7 +6,7 @@
 /*   By: nabih <naali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 17:03:23 by nabih             #+#    #+#             */
-/*   Updated: 2019/12/08 09:08:58 by nabih            ###   ########.fr       */
+/*   Updated: 2019/12/11 00:52:25 by nabih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define	LEM_IN_H
 
 # include <includes.h>
-// a supprimer 
+// a supprimer
 # include <time.h>
 
 
@@ -109,6 +109,12 @@ void					del_node(t_node **start, char *name);
 void					clear_node(t_node **start);
 t_node					*remove_from_node(t_node **start, char *name);
 void					send_node_away(t_node **src, t_node **dst, char *name);
+
+/*
+** Fonctions de Gestion
+**    DES LISTE ANTS
+*/
+t_list					*init_ant_lst(int32_t nb);
 
 /*
 ** Fonstions de Gestion

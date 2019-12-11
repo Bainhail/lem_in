@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ant_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nabih <naali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 16:40:56 by naali             #+#    #+#             */
-/*   Updated: 2019/12/11 00:36:25 by nabih            ###   ########.fr       */
+/*   Created: 2019/12/11 00:41:56 by nabih             #+#    #+#             */
+/*   Updated: 2019/12/11 00:50:58 by nabih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft.h"
+#include <lem_in.h>
 
-void		ft_lstadd(t_list **alst, t_list *new)
+t_list					*init_ant_lst(int32_t nb)
 {
-	t_list	*tmp;
+	t_list			*tmp;
+	t_list			*lst;
 
-	if (alst != NULL)
+	lst = NULL;
+	while (nb > 0)
 	{
-		tmp = *alst;
-		if (new != NULL)
-		{
-			new->next = tmp;
-			*alst = new;
-		}
+		tmp = ft_lstnew(NULL, 0);
+		tmp->content_size = nb;
+		ft_lstadd(&lst, tmp);
+		nb--;
 	}
+	tmp = NULL;
+	return (lst);
 }

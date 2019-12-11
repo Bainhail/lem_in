@@ -6,7 +6,7 @@
 #    By: naali <naali@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 16:13:53 by naali             #+#    #+#              #
-#    Updated: 2019/12/09 06:17:27 by nabih            ###   ########.fr        #
+#    Updated: 2019/12/11 06:35:00 by nabih            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -48,17 +48,17 @@ SRC				=	main.c				\
 SRC				+=	get_info.c			\
 					get_nb_ants.c		\
 					get_nodes.c			\
-					get_paths.c
+					get_paths.c			\
+					ant_lst.c
 
 SRC				+=	solver.c 			\
 					lst_address.c		\
 					print_ants.c		\
 					fulkerson_algo.c	\
 					retrace_circuits.c	\
-					print_anthill.c		\
-					print_anthill_two.c	\
 					init_anthill.c		\
 					debug.c	 #à supprimer
+
 
 OBJ 			=	$(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 

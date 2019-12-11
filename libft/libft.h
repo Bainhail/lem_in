@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 13:08:09 by naali             #+#    #+#             */
-/*   Updated: 2019/12/08 08:01:59 by nabih            ###   ########.fr       */
+/*   Updated: 2019/12/11 02:06:14 by nabih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ size_t			ft_lstsize(t_list *alst);
 t_list			*ft_lstfindsize(t_list *alst, size_t c_size);
 void			ft_lstadd_bot(t_list **alst, t_list *new);
 void			ft_lstadd_top(t_list **alst, t_list *new);
+void			ft_lstdel_contentsize(t_list **lst, size_t cs);
 
 
 char			**ft_tabcpy(char **dst, const char **src, unsigned int max);

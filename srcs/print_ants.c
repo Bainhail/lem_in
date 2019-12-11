@@ -6,97 +6,147 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 12:45:26 by jleblond          #+#    #+#             */
-/*   Updated: 2019/12/10 06:04:09 by nabih            ###   ########.fr       */
+/*   Updated: 2019/12/11 07:24:43 by nabih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solver.h"
 
-static int32_t	send_ants(t_anthill *h)
-{
-	int32_t		send;
-
-	if (h->unsent)
-	{
-		send = h->send_size;
-		h->unsent -= send;
-	}
-	else
-		send = 0;
-	return (send);
-}
-
 /*
-** max_ant_index and print_nb will decrease at each turn in print_one_floor
+** Retire les chemins avec le moins bon ratio de ligne
+** renvoi le nombre de chemin NON utiliser (not_use)
+** qui est utiliser pour calculer le nombre de fourmie
+** qui entre dans la fourmiliere
 */
-void		prepare_print_one_data(t_anthill *h, uint32_t send1)
+static uint32_t			how_many_path(t_circuits **c, uint32_t len,
+										uint32_t ants)
 {
-	if (h->activated == LM_FALSE)
-		return ;
-	if (send1 == 0)
-		h->start_floor++;
-	h->total_enter += send1;
-	h->print_nb = h->total_enter - h->total_exit;
-	h->max_ant_index = h->total_enter;
-	// printf("\n\nsend1[%d]total_exit[%d], total_enter[%d]\n\n",send1, h->total_exit, h->total_enter );
+	uint32_t		len_tmp;
+	t_manypth		mp;
 
-}
-
-void		prepare_print_two_data(t_anthill *h2, uint32_t send2, t_anthill *h)
-{
-	if (h2->activated == LM_FALSE)
-		return ;
-	if (send2 == 0)
-		h2->start_floor++;
-	h2->total_enter += send2;
-	h2->print_nb = h2->total_enter - h2->total_exit;
-	h2->max_ant_index = h2->total_enter + h->max_ant_index;
-
-}
-
-/*
-** in init anthill, h1 is activated, h2 not.
-** In loop, h2 will be activated when h1 finish sending.
-** Note that send2 has a non-zero value only once,
-** that is when send1 becomes zero for the first time.
-*/
-uint32_t				how_many_path(t_circuits **c, uint32_t len, uint32_t ants);// Dans debug
-
-void		print_ants(t_lemin *lem, t_circuits **cir_tab, int32_t tab_len)
-{
-	t_anthill	h1;
-	t_anthill	h2;
-	int32_t		send1;
-	int32_t		send2;
-	uint32_t	n_use;//
-
-	n_use = how_many_path(cir_tab, tab_len, lem->nb_ants);//
-	init_anthill_one(&h1, lem->nb_ants, tab_len - n_use);//
-	init_anthill_two(&h2, lem->nb_ants, tab_len - n_use);//
-	send2 = 0;
-	while (h1.activated || h2.activated)
+	mp.old = 0;
+	mp.not_use = 0;
+	len_tmp = len;
+	while (--len + 1 > 0)
 	{
-		printf("no use[%d]\n", n_use );
-		if (tab_len - n_use <= (uint32_t)h1.unsent)
-			h1.send_size = (int32_t)(tab_len - n_use);
-		send1 = send_ants(&h1);
-		if (send1 == 0)
+		mp.ratio = ants / (len + 1);
+		if (mp.ratio > 0)
 		{
-//			h2.send_size = (lem->nb_ants - (h1.total_enter + h2.total_enter)) % h1.send_size;
-			send2 = send_ants(&h2);
+			mp.new = c[len]->nb_floor + (mp.ratio - 1);
+			if ((mp.new <= mp.old || mp.old == 0))
+			{
+				if (mp.old != 0)
+					mp.not_use++;
+				mp.old = mp.new;
+			}
 		}
-		if (send2 > 0)
-			h2.activated = LM_TRUE;
-		prepare_print_one_data(&h1, send1);
-		prepare_print_two_data(&h2, send2, &h1);
-		print_anthill_two(lem, cir_tab, tab_len /* - n_use */, &h2);//
-		print_anthill_one(lem, cir_tab, &h1);
-		if (h1.total_enter - h1.total_exit == 0)
-			h1.activated = LM_FALSE;
-		if (h2.total_enter - h2.total_exit == 0)
-			h2.activated = LM_FALSE;
-		ft_putchar('\n');
-		if (lem->nb_ants - (h1.total_enter + h2.total_enter) > 0)//
-			n_use = how_many_path(cir_tab, tab_len, lem->nb_ants - (h1.total_enter + h2.total_enter));//
+		else
+			mp.not_use++;
 	}
+	return (mp.not_use);
+}
+
+/*
+** Attribut les chemins au fourmies qui entre dans
+** la fourmilliere. Avant d'entrer leur PATH est
+** initialiser a NULL.
+*/
+static void				init_ant_cir(t_circuits **c, t_list **ants, int32_t nb)
+{
+	int32_t			i;
+	t_list			*tmp;
+
+	i = 0;
+	if (c && *c && ants && *ants && nb > 0)
+	{
+		tmp = *ants;
+		while (tmp->content)
+			tmp = tmp->next;
+		while (i < nb)
+		{
+			tmp->content = (void*)(c[i]->addr)->next;
+			tmp = tmp->next;
+			i++;
+		}
+	}
+}
+
+/*
+** Affiche une seul fourmie
+*/
+static void				print_one_ant(uint32_t ant_index, char *node_name)
+{
+	ft_putchar('L');
+	ft_putnbr(ant_index);
+	ft_putchar('-');
+	ft_putstr(node_name);
+}
+
+/*
+** Affiche une ligne complete en se basant sur les
+** chemins stocker dans les noeuds des fourmies.
+** si une fourmies arrive en fin de chemin son
+** noeud est automatiquement liberer.
+*/
+static int32_t			print_line(t_list **ants, int32_t nb)
+{
+	int32_t			end;
+	size_t			cs;
+	t_list			*tmp;
+	t_list			*cp;
+	t_node			*node;
+
+	end = 0;
+	tmp = *ants;
+	while (nb > 0)
+	{
+		cp = (t_list*)(tmp->content);
+		node = *(t_node**)(cp->content);
+		print_one_ant(tmp->content_size, node->name);
+		cs = tmp->content_size;
+		cp = cp->next;
+		tmp->content = (void*)cp;
+		tmp = tmp->next;
+		if (cp == NULL)
+		{
+			ft_lstdel_contentsize(ants, cs);
+			++end;
+		}
+		(--nb > 0) ? ft_putchar(' ') : 0;
+	}
+	return (end);
+}
+
+/*
+** Selectionne les chemins et les attribut a chaque
+** fourmies au fur et a mesure qu'elles sont selectionner
+** pour entrer dans la fourmilliere
+** Affiche ligne par ligne les etapes.
+*/
+void					print_ants(t_lemin *lem, t_list **ants, t_circuits **cir_tab, int32_t tab_len)
+{
+	int32_t			send;
+	int32_t			total_enter;
+	int32_t			total_exit;
+	int32_t			n_use;
+	int				line;// a delete
+
+	line = 0;// a delete
+	total_enter = 0;
+	total_exit = 0;
+	while (ants && *ants)
+	{
+		send = 0;
+		if (lem->nb_ants - total_enter > 0)
+		{
+			n_use = how_many_path(cir_tab, tab_len, lem->nb_ants - total_enter);
+			send = tab_len - n_use;
+			init_ant_cir(cir_tab, ants, send);
+			total_enter += send;
+		}
+		total_exit += print_line(ants, total_enter - total_exit);
+		ft_putchar('\n');
+		line++;// a delete
+	}
+	printf("nb line == %d\n", line);// a delete
 }
