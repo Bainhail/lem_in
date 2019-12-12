@@ -6,7 +6,7 @@
 #    By: naali <naali@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 16:13:53 by naali             #+#    #+#              #
-#    Updated: 2019/12/11 06:35:00 by nabih            ###   ########.fr        #
+#    Updated: 2019/12/12 12:46:35 by nabih            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -31,6 +31,7 @@ HEADERS			=	includes.h		\
 					lem_in.h		\
 					get_info.h		\
 					solver.h		\
+					get_many_path.h	\
 					libft.h
 
 INCLUDES		=	$(addprefix $(INC_FLAG), $(HEADERS_PATH))
@@ -54,9 +55,11 @@ SRC				+=	get_info.c			\
 SRC				+=	solver.c 			\
 					lst_address.c		\
 					print_ants.c		\
+					get_appro_max.c		\
 					fulkerson_algo.c	\
 					retrace_circuits.c	\
 					init_anthill.c		\
+					how_many_path.c		\
 					debug.c	 #à supprimer
 
 

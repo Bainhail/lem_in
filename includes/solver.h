@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:36:05 by jleblond          #+#    #+#             */
-/*   Updated: 2019/12/11 06:38:24 by nabih            ###   ########.fr       */
+/*   Updated: 2019/12/12 12:36:29 by nabih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct	s_manypth
 	uint32_t	ratio;
 	uint32_t	old;
 	uint32_t	new;
+	uint32_t	diff;
+	uint32_t	old_diff;
 }				t_manypth;
 
 typedef	struct	s_anthill
@@ -65,9 +67,12 @@ void			init_anthill_one(t_anthill *h, int32_t nb_ants,
 								int32_t max_flow);
 void			init_anthill_two(t_anthill *h, int32_t nb_ants,
 								int32_t max_flow);
+uint32_t		how_many_path(t_circuits **c, uint32_t len,
+								uint32_t ants);
 
 //à supprimer functions debug à la fin
 void			debug_print_circuits(t_circuits **cir_tab, uint32_t tab_len);
 void			debug_print_address_lst(t_list **alst);
+void			debug_print_anttab(t_circuits **c, uint32_t *tab, uint32_t len);// A Delete
 
 # endif

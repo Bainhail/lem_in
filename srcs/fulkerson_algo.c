@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 11:45:10 by jleblond          #+#    #+#             */
-/*   Updated: 2019/12/10 21:17:39 by nabih            ###   ########.fr       */
+/*   Updated: 2019/12/12 11:33:15 by nabih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static uint8_t		breadth_first_search(t_lemin *lem)
 	open = address_list_new(&(lem->start));
 	while (open && (current = get_top_elem(open)))
 	{
-		current = get_top_elem(open);
+//		current = get_top_elem(open);
 		if (!current)
 			break ;
 		if (not_in_address_lst(visited, *current))
