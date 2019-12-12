@@ -32,7 +32,7 @@ static uint32_t			init_max(t_circuits **c, uint32_t len, uint32_t ants)
 	max = get_appro_max(c, len, ants);
 	while (c[i]->nb_floor < max)
 		i++;
-	printf("appro max = %d\n", c[i]->nb_floor);
+	// printf("appro max = %d\n", c[i]->nb_floor);
 	return (i);
 }
 
@@ -80,7 +80,7 @@ static uint32_t			*ants_spreading(t_circuits **c, uint32_t *tab,
 		max++;
 	}
 	fill_ant_tab(&tab, len, ants);
-	debug_print_anttab(c, tab, len);// a delete
+	// debug_print_anttab(c, tab, len);// a delete
 	return (tab);
 }
 

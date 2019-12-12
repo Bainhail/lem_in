@@ -40,13 +40,13 @@ static void				init_ant_cir(t_circuits **c, t_list **ants, int32_t nb)
 /*
 ** Affiche une seul fourmie
 */
-/* static void				print_one_ant(uint32_t ant_index, char *node_name) */
-/* { */
-/* 	ft_putchar('L'); */
-/* 	ft_putnbr(ant_index); */
-/* 	ft_putchar('-'); */
-/* 	ft_putstr(node_name); */
-/* } */
+ static void				print_one_ant(uint32_t ant_index, char *node_name) 
+ { 
+	ft_putchar('L');
+ 	ft_putnbr(ant_index); 
+ 	ft_putchar('-'); 
+ 	ft_putstr(node_name); 
+ } 
 
 /*
 ** Affiche une ligne complete en se basant sur les
@@ -68,7 +68,7 @@ static int32_t			print_line(t_list **ants, int32_t nb)
 	{
 		cp = (t_list*)(tmp->content);
 		node = *(t_node**)(cp->content);
-//		print_one_ant(tmp->content_size, node->name);
+		print_one_ant(tmp->content_size, node->name);
 		cs = tmp->content_size;
 		cp = cp->next;
 		tmp->content = (void*)cp;
@@ -78,8 +78,8 @@ static int32_t			print_line(t_list **ants, int32_t nb)
 			ft_lstdel_contentsize(ants, cs);
 			++end;
 		}
-		(--nb > 0) ? ft_putchar('\0') : 0;//pour test
-		/* (--nb > 0) ? ft_putchar(' ') : 0; */
+		// (--nb > 0) ? ft_putchar('\0') : 0;//pour test
+		(--nb > 0) ? ft_putchar(' ') : 0; 
 	}
 	return (end);
 }
@@ -113,10 +113,10 @@ void					print_ants(t_lemin *lem, t_list **ants, t_circuits **cir_tab, int32_t t
 			enter_time++;// a delete
 		}
 		total_exit += print_line(ants, total_enter - total_exit);
-		/* ft_putchar('\n'); */
+		ft_putchar('\n'); 
 		line++;// a delete
 	}
-	printf("nb line == %d\n", line);// a delete
-	printf("nb path == %d\n", tab_len + 1);// a delete
-	printf("nb Enter_time == %d\n", enter_time);// a delete
+	// printf("nb line == %d\n", line);// a delete
+	// printf("nb path == %d\n", tab_len + 1);// a delete
+	// printf("nb Enter_time == %d\n", enter_time);// a delete
 }
