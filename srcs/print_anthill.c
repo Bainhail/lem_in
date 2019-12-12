@@ -12,13 +12,14 @@
 
 #include "solver.h"
 
-void		print_line(uint32_t ant_index, char *node_name)
+void		print_line(uint32_t ant_index, char *node_name, int last)
 {
 	ft_putchar('L');
 	ft_putnbr(ant_index);
 	ft_putchar('-');
 	ft_putstr(node_name);
-	ft_putchar(' ');
+	if (last != 1)
+		ft_putchar(' ');
 }
 
 /*
@@ -66,7 +67,7 @@ static void		print_one_floor_in_cir(uint32_t floor, t_circuits **cir_tab,
 		node = get_node_in_circuit(cir_tab[i]->addr, floor);
 		if (node)
 		{
-			print_line(h->max_ant_index, (*node)->name);
+			print_line(h->max_ant_index, (*node)->name, h->print_nb);
 			check_if_exit(lem->end, node, h);
 			h->max_ant_index--;
 			h->print_nb--;

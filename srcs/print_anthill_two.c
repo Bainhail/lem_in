@@ -77,7 +77,7 @@ static t_node		**print_one_node(int32_t index, t_circuits **cir_tab,
 	node = get_node_in_circuit(cir_tab[index]->addr, floor);
 	if (node)
 	{
-		print_line(h2->max_ant_index, (*node)->name);
+		print_line(h2->max_ant_index, (*node)->name, h2->print_nb);
 		h2->max_ant_index--;
 		h2->print_nb--;
 	}

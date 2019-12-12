@@ -49,7 +49,7 @@ void			print_anthill_one(t_lemin *lem, t_circuits **cir_tab,
 void			print_anthill_two(t_lemin *lem, t_circuits **cir_tab,
 								int32_t tab_len, t_anthill *h2);
 void			free_cir_tab(t_circuits **cir_tab, uint32_t tab_len);
-void			print_line(uint32_t ant_index, char *node_name);
+void			print_line(uint32_t ant_index, char *node_name, int last);
 void			check_if_exit(t_node *end, t_node **node, t_anthill *h);
 void			init_anthill_one(t_anthill *h, int32_t nb_ants,
 								int32_t max_flow);
