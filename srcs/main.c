@@ -32,7 +32,7 @@ int				main()
 
 //			print_tab(lem.tab, HASHCODE);// A DELETE
 			/* print_info_inout(&lem);// A DELETE */
-//			printf("Get Infos DONE\n");
+			// printf("Get Infos DONE\n");
 			solver(&lem);
 		}
 		// else
