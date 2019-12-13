@@ -88,7 +88,7 @@ t_list			*ft_listfind(t_list *alst, void *content, size_t c_size);
 size_t			ft_lstsize(t_list *alst);
 t_list			*ft_lstfindsize(t_list *alst, size_t c_size);
 void			ft_lstadd_bot(t_list **alst, t_list *new);
-void			ft_lstadd_top(t_list **alst, t_list *new);
+int				ft_lstadd_top(t_list **alst, t_list *new);
 
 
 char			**ft_tabcpy(char **dst, const char **src, unsigned int max);

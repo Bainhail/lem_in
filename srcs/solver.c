@@ -54,7 +54,8 @@ static t_circuits		**init_cir_tab(uint32_t tab_len)
 // decommente pour voir le temps utilisé
 void					solver(t_lemin *lem)
 {
-	int32_t			tab_len;
+	uint32_t			tab_len;
+	uint32_t			keep_tab_len;
 	t_circuits		**cir_tab;
 
 	// clock_t	start_t, finish_t;
@@ -66,12 +67,15 @@ void					solver(t_lemin *lem)
 	// finish_t = clock() - start_t;
 	// printf("fulkerson_algo time%f\n", (double)finish_t / CLOCKS_PER_SEC);
 	// start_t = clock();
-	if (retrace_circuits(lem, tab_len, cir_tab))
+
+	//!!! si il y a croisement, tab_len va diminuer dans retrace_circuit
+	keep_tab_len = tab_len;
+	if (retrace_circuits(lem, &tab_len, cir_tab))
 	{
 		// finish_t = clock() - start_t;
 		// printf("retrace_circuits time%f\n", (double)finish_t / CLOCKS_PER_SEC);
 		// debug_print_circuits(cir_tab, tab_len);
 		print_ants(lem, cir_tab, tab_len);
 	}
-	free_cir_tab(cir_tab, tab_len);
+	free_cir_tab(cir_tab, keep_tab_len);
 }
