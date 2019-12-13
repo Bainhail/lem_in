@@ -73,7 +73,7 @@ uint8_t		retrace_circuits(t_lemin *lem,
 		cir_tab[i]->addr = address_list_new(&(lem->end));
 		if (cir_tab[i]->addr == NULL)
 		{
-			del_address_lst(used);
+			del_address_lst(&used);
 			return (LM_FALSE);
 		}
 		if (retrace_one_circuit_and_modif_flow(lem, cir_tab[i], &used))
@@ -81,9 +81,9 @@ uint8_t		retrace_circuits(t_lemin *lem,
 		else
 		{
 			(*tab_len) -= 1;
-			del_address_lst(cir_tab[i]->addr);
+			del_address_lst(&(cir_tab[i]->addr));
 		}
 	}
-	del_address_lst(used);
+	del_address_lst(&used);
 	return (LM_TRUE);
 }

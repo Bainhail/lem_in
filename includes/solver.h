@@ -45,7 +45,7 @@ typedef	struct	s_anthill
 
 t_list			*address_list_new(t_node ** const new);
 void			del_top_elem(t_list **alst);
-void			del_address_lst(t_list *lst);
+void			del_address_lst(t_list **alst);
 uint8_t			not_in_address_lst(t_list *lst, t_node const *address);
 t_node			**get_node_in_circuit(t_list *cir, uint32_t floor);
 /* void			print_ants(t_lemin *lem, t_circuits **cir_tab, */

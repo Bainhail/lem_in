@@ -103,11 +103,14 @@ void					solver(t_lemin *lem)
 		/* printf("sort+antlst time%f\n", (double)finish_t / CLOCKS_PER_SEC); */
 		/* start_t = clock(); */
 
-		/* debug_print_circuits(cir_tab, tab_len); */
-		print_ants(lem, &ants, cir_tab, tab_len);
+		debug_print_circuits(cir_tab, tab_len); 
+		// print_ants(lem, &ants, cir_tab, tab_len);
 
 		/* finish_t = clock() - start_t; */
 		/* printf("print path time%f\n", (double)finish_t / CLOCKS_PER_SEC); */
 	}
+	printf("\n====================\n");
+	debug_print_circuits(cir_tab, keep_tab_len); 
+
 	free_cir_tab(cir_tab, keep_tab_len);
 }

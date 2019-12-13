@@ -49,8 +49,8 @@ static uint8_t		iter_adja_of_current(t_node *current, t_list **visited,
 
 static void			free_open_and_visited(t_list *open, t_list *visited)
 {
-	del_address_lst(visited);
-	del_address_lst(open);
+	del_address_lst(&visited);
+	del_address_lst(&open);
 }
 
 

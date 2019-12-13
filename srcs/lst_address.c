@@ -61,18 +61,23 @@ void		del_top_elem(t_list **alst)
 	}
 }
 
-void		del_address_lst(t_list *lst)
+void		del_address_lst(t_list **alst)
 {
 	t_list *keep;
 
-	while (lst)
+
+	while (*alst)
 	{
-		keep = lst->next;
-		free(lst->content);
-		lst->content = NULL;
-		free(lst);
-		lst = keep;
+		keep = (*alst)->next;
+		if ((*alst)->content)
+		{
+			free((*alst)->content);
+			(*alst)->content = NULL;
+		}
+		free(*alst);
+		*alst = keep;
 	}
+	*alst = NULL;
 }
 
 void		free_cir_tab(t_circuits **cir_tab, uint32_t tab_len)
@@ -86,7 +91,7 @@ void		free_cir_tab(t_circuits **cir_tab, uint32_t tab_len)
 		{
 			if (cir_tab[i])
 			{
-				del_address_lst(cir_tab[i]->addr);
+				del_address_lst(&(cir_tab[i]->addr));
 				free(cir_tab[i]);
 				cir_tab[i] = NULL;
 			}
