@@ -14,7 +14,7 @@
 
 
 
-char			*get_parent_name(t_node *enter)
+t_node			*get_parent_addr(t_node *enter)
 {
 	t_path		*p;
 
@@ -22,7 +22,7 @@ char			*get_parent_name(t_node *enter)
 	while(p)
 	{
 		if (p->flow == 2)
-			return (p->name);
+			return (p->addr);
 		p = p->next;
 	}
 	return (NULL);
@@ -39,7 +39,7 @@ uint8_t		retrace_one_circuit_and_modif_flow(t_lemin *lem, t_circuits *cir)
 	nb_floor = 0;
 	while (child != lem->start)
 	{
-		parent = get_node_in_hash(lem, get_parent_name(child));
+		parent = get_parent_addr(child);
 		if (!parent)
 			return (LM_FALSE);
 		new = address_list_new(&parent);
