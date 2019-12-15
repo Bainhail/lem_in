@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 11:45:10 by jleblond          #+#    #+#             */
-/*   Updated: 2019/12/12 11:33:15 by nabih            ###   ########.fr       */
+/*   Updated: 2019/12/13 19:47:59 by nabih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ static t_node		**get_top_elem(t_list *lst)
 
 	ret = NULL;
 	if (lst != NULL)
-	{
 		ret = (t_node**)(lst->content);
-	}
 	return (ret);
 }
 
@@ -65,17 +63,16 @@ static void			free_open_and_visited(t_list *open, t_list *visited)
 */
 static uint8_t		breadth_first_search(t_lemin *lem)
 {
+	uint8_t	ret;
 	t_list	*open;
 	t_list	*visited;
 	t_node	**current;
 
 	visited = NULL;
+	ret = LM_TRUE;
 	open = address_list_new(&(lem->start));
-	while (open && (current = get_top_elem(open)))
+	while (open && (current = get_top_elem(open)) && ret == LM_TRUE)
 	{
-//		current = get_top_elem(open);
-		if (!current)
-			break ;
 		if (not_in_address_lst(visited, *current))
 			ft_lstadd_top(&visited, address_list_new(current));
 		if (*current == lem->end)
@@ -83,8 +80,7 @@ static uint8_t		breadth_first_search(t_lemin *lem)
 			free_open_and_visited(open, visited);
 			return (LM_TRUE);
 		}
-		if (iter_adja_of_current(*current, &visited, &open) == LM_FALSE)
-			break ;
+		ret = iter_adja_of_current(*current, &visited, &open);
 		del_top_elem(&open);
 	}
 	free_open_and_visited(open, visited);
@@ -110,7 +106,6 @@ uint32_t		fulkerson_algo(t_lemin *lem, uint32_t wanted_flow)
 	{
 		max_flow++;
 		child = lem->end;
-
 		while (child != lem->start)
 		{
 			parent = child->parent_addr;

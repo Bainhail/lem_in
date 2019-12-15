@@ -34,13 +34,16 @@ void		debug_print_circuits(t_circuits **cir_tab, uint32_t tab_len)
 	i = 0;
 	while (i < tab_len)
 	{
-		printf("circuit[%d] has length of [%d]:\n", i, cir_tab[i]->nb_floor);
-		cp = cir_tab[i]->addr;
-		while (cp)
+		if (cir_tab[i])
 		{
-			node = *(t_node**)(cp->content);
-			printf(" %s", node->name);
-			cp = cp->next;
+			printf("circuit[%d] has length of [%d]:\n", i, cir_tab[i]->nb_floor);
+			cp = cir_tab[i]->addr;
+			while (cp)
+			{
+				node = *(t_node**)(cp->content);
+				// printf("%s\n", node->name);
+				cp = cp->next;
+			}
 		}
 		i++;
 	}

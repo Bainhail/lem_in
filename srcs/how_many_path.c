@@ -6,7 +6,7 @@
 /*   By: nabih <naali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 11:27:59 by nabih             #+#    #+#             */
-/*   Updated: 2019/12/12 12:43:45 by nabih            ###   ########.fr       */
+/*   Updated: 2019/12/13 16:29:35 by nabih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static uint32_t			init_max(t_circuits **c, uint32_t len, uint32_t ants)
 
 	i = 0;
 	max = get_appro_max(c, len, ants);
-	while (c[i]->nb_floor < max)
+	while (c[i]->nb_floor < max && i < len)
 		i++;
-	// printf("appro max = %d\n", c[i]->nb_floor);
+//	printf("appro max = %d\n", c[i]->nb_floor);
 	return (i);
 }
 
@@ -80,7 +80,7 @@ static uint32_t			*ants_spreading(t_circuits **c, uint32_t *tab,
 		max++;
 	}
 	fill_ant_tab(&tab, len, ants);
-	// debug_print_anttab(c, tab, len);// a delete
+//	debug_print_anttab(c, tab, len);// a delete
 	return (tab);
 }
 
